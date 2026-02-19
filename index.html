@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LegitWear - Стильная одежда</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- ШАПКА -->
+    <header class="header">
+        <div class="header__container">
+            <a href="index.html" class="header__logo">LegitWear</a>
+            <nav class="header__nav nav">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="#" class="nav__link">Главная</a></li>
+                    <li class="nav__item"><a href="catalog.html" class="nav__link">Каталог</a></li>
+                </ul>
+            </nav>
+            <div class="header__icons icons">
+                <div class="header__search-wrapper">
+                    <input type="text" class="search-input" placeholder="Поиск...">
+                </div>
+                <a href="#" class="header__icon-btn js-search-btn" aria-label="Поиск">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+                <a href="cart.html" class="header__icon-btn header__cart-wrapper" aria-label="Корзина">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 10V6C8 3.79086 9.79086 2 12 2C14.2091 2 16 3.79086 16 6V10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M3 10H21L19.6421 20.2105C19.5607 20.6865 19.1413 21 18.6559 21H5.34409C4.85873 21 4.43934 20.6865 4.35789 20.2105L3 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="header__cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    <!-- Конец ШАПКИ -->
+
+    <!-- ОСНОВНОЙ КОНТЕНТ -->
+    <main class="main">
+        <!-- ГЛАВНЫЙ ЭКРАН -->
+        <section class="hero">
+            <div class="hero__container">
+                <h1 class="hero__title">unlock your potential with<br><span>LEGITWEAR COMMUNITY</span></h1>
+
+                <a href="catalog.html" class="hero__button button">Смотреть каталог</a>
+            </div>
+        </section>
+        <!-- Конец ГЛАВНОГО ЭКРАНА -->
+
+        <!-- ПОПУЛЯРНЫЕ ТОВАРЫ -->
+        <section class="popular-products">
+            <div class="popular-products__container">
+                <div class="popular-products__header">
+                    <h2 class="popular-products__title">Популярные товары</h2>
+                    <div class="slider__controls">
+                        <button class="slider__arrow slider__arrow--left" aria-label="Предыдущий слайд">&lt;</button>
+                        <button class="slider__arrow slider__arrow--right" aria-label="Следующий слайд">&gt;</button>
+                    </div>
+                </div>
+                <div class="slider__wrapper">
+                    <div class="product-grid">
+                        <a href="catalog.html" class="product-card__link-wrapper">
+                            <div class="product-grid__item product-card" data-category="jeans" data-description="Вязаные спортивные штаны от Nike. Мягкий и приятный к телу материал. Идеально для спорта и отдыха.">
+                                <img src="https://img.poizon.ru/p6GuJzru5x9QWr6KMeDLTzhqauT8iDC6V6uIfxuI5H0/w:768/g:no/el:1/aHR0cHM6Ly9zdGF0aWMucG9pem9uLnJ1L2h0dHBzOi8vcWluaXUuZGV3dWNkbi5jb20vRnF1ZkJiSmhFUlVKMXRuNjFUOUdGM0MzaTVfTg" alt="Название товара 4" class="product-card__image">
+                                <h3 class="product-card__title">Nike Knitted Sweatpants Men</h3>
+                                <p class="product-card__price">5 746 ₽</p>
+                            </div>
+                        </a>
+                        <a href="catalog.html" class="product-card__link-wrapper">
+                            <div class="product-grid__item product-card" data-category="jeans" data-description="Черные вязаные спортивные штаны от New Balance. Классический дизайн и непревзойденный комфорт.">
+                                <img src="https://img.poizon.ru/31vmcxCXTczu_OZBwf9QPtZ9m4V5jdy1PykpmNyxk2E/w:768/g:no/el:1/aHR0cHM6Ly9zdGF0aWMucG9pem9uLnJ1L3Byby1pbWcvb3JpZ2luLWltZy8yMDIzMDEwOS82NzY0NmU5OTRhNGU0Y2NkYWQ1NjM4YjU4ZmJhZDAyMC5qcGc" alt="Название товара 5" class="product-card__image">
+                                <h3 class="product-card__title">New Balance Knitted Sweatpants Men Black</h3>
+                                <p class="product-card__price">5 006 ₽</p>
+                            </div>
+                        </a>
+                        <a href="catalog.html" class="product-card__link-wrapper">
+                            <div class="product-grid__item product-card" data-category="jeans" data-description="Классические синие джинсы Levis. Прочный деним и проверенный временем крой.">
+                                <img src="https://img.poizon.ru/kju-Crt5zTbWO8W_SSga6t7eYmoCAhiXDjudtFRal5k/w:768/g:no/el:1/aHR0cHM6Ly9zdGF0aWMucG9pem9uLnJ1L3Byby1pbWcvb3JpZ2luLWltZy8yMDIyMDYwMS9hZDEzY2MwN2IyMGI0ODk1YTQ0NWIzYzZiNzA2MWNlMi5qcGc" alt="Название товара 6" class="product-card__image">
+                                <h3 class="product-card__title">Levis Jeans Men Blue</h3>
+                                <p class="product-card__price">13 242 ₽</p>
+                            </div>
+                        </a>
+                        <a href="catalog.html" class="product-card__link-wrapper">
+                            <div class="product-grid__item product-card" data-category="shoes" data-description="Кроссовки Asics Gel-Kahana 8 для бега по пересеченной местности. Отличная амортизация и сцепление.">
+                                <img src="https://img.poizon.ru/ROiu_Tn23p5rIdv_pBMl_j2YFJxthgF7XHCfJUF4smE/w:768/g:no/el:1/aHR0cHM6Ly9zdGF0aWMucG9pem9uLnJ1L3Byby1pbWcvb3JpZ2luLWltZy8yMDIyMTIxNi80Y2MzNWZiOGRjNmE0NTJkODE1ZWM0ZjE0MWMwYWVmMi5qcGc" alt="Название товара 7" class="product-card__image">
+                                <h3 class="product-card__title">Asics Gel-Kahana 8</h3>
+                                <p class="product-card__price">12 990 ₽</p>
+                            </div>
+                        </a>
+                        <a href="catalog.html" class="product-card__link-wrapper">
+                            <div class="product-grid__item product-card" data-category="shoes" data-description="Стильные кроссовки New Balance 2002R из 'Protection Pack'. Уникальный дизайн и премиальные материалы.">
+                                <img src="https://img.poizon.ru/_WEDhTlDuMSQqNaxGgb6pMT50sWwqEhqInvOXroS9ow/w:768/g:no/el:1/aHR0cHM6Ly9zdGF0aWMucG9pem9uLnJ1L3Byby1pbWcvb3JpZ2luLWltZy8yMDIyMDMyNC80OWMzZDc5ZjgyODE0ZDAzYTc1NDdkODA1M2Q2ZTUyNS5qcGc" alt="Название товара 8" class="product-card__image">
+                                <h3 class="product-card__title">New Balance 2002R Protection Pack Rain Cloud</h3>
+                                <p class="product-card__price">9 169 ₽</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Конец ПОПУЛЯРНЫХ ТОВАРОВ -->
+
+        <!-- ПРЕИМУЩЕСТВА -->
+        <section class="advantages">
+            <div class="advantages__container">
+                <h2 class="advantages__title">Наши преимущества</h2>
+                <div class="advantages__grid">
+                    <div class="advantages__item">
+                        <h3 class="advantages__item-title">Бесплатная доставка</h3>
+                        <p class="advantages__item-text">При заказе от определенной суммы.</p>
+                    </div>
+                    <div class="advantages__item">
+                        <h3 class="advantages__item-title">Гарантия качества</h3>
+                        <p class="advantages__item-text">Мы тщательно отбираем поставщиков.</p>
+                    </div>
+                    <div class="advantages__item">
+                        <h3 class="advantages__item-title">Легкий возврат</h3>
+                        <p class="advantages__item-text">Простая процедура обмена или возврата.</p>
+                    </div>
+                    <div class="advantages__item">
+                        <h3 class="advantages__item-title">Поддержка 24/7</h3>
+                        <p class="advantages__item-text">Всегда готовы ответить на ваши вопросы.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Конец ПРЕИМУЩЕСТВ -->
+    </main>
+    <!-- Конец ОСНОВНОГО КОНТЕНТА -->
+
+    <!-- ПОДВАЛ -->
+    <footer class="footer">
+        <div class="footer__container">
+            <div class="footer__contacts">
+                <h3 class="footer__heading">Контакты</h3>
+                <p>Email: info@legitwear.com</p>
+                <p>Телефон: +7 (XXX) XXX-XX-XX</p>
+            </div>
+            <div class="footer__social social">
+                <h3 class="footer__heading">Мы в соцсетях</h3>
+                <ul class="social__list">
+                    <li class="social__item"><a href="#" class="social__link" aria-label="ВКонтакте">VK</a></li>
+                    <li class="social__item"><a href="#" class="social__link" aria-label="Telegram">TG</a></li>
+                </ul>
+            </div>
+            <div class="footer__copyright">
+                <p>&copy; 2025 LegitWear. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- Конец ПОДВАЛА -->
+
+    <script src="js/script.js"></script>
+</body>
+</html>

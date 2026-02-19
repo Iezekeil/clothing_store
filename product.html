@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LegitWear - Карточка товара</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- ШАПКА -->
+    <header class="header">
+        <div class="header__container">
+            <a href="index.html" class="header__logo">LegitWear</a>
+            <nav class="header__nav nav">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="#" class="nav__link">Главная</a></li>
+                    <li class="nav__item"><a href="#" class="nav__link">Каталог</a></li>
+                </ul>
+            </nav>
+            <div class="header__icons icons">
+                <a href="cart.html" class="header__icon-btn header__cart-wrapper" aria-label="Корзина">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 10V6C8 3.79086 9.79086 2 12 2C14.2091 2 16 3.79086 16 6V10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M3 10H21L19.6421 20.2105C19.5607 20.6865 19.1413 21 18.6559 21H5.34409C4.85873 21 4.43934 20.6865 4.35789 20.2105L3 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="header__cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+    <!-- Конец ШАПКИ -->
+
+    <!-- ОСНОВНОЙ КОНТЕНТ -->
+    <main class="main">
+        <section class="back-button-section">
+            <div class="breadcrumbs__container">
+                <a href="catalog.html" class="back-button">← Назад в каталог</a>
+            </div>
+        </section>
+
+        <section class="product-page">
+            <div class="product-page__container">
+                <div class="product-page__image-wrapper">
+                    <img src="https://via.placeholder.com/500x600?text=Product+Image" alt="Изображение товара" class="product-page__image">
+                </div>
+                <div class="product-page__info">
+                    <h1 class="product-page__title">Название товара</h1>
+                    <p class="product-page__price">10 000 ₽</p>
+                    <p class="product-page__description">Это описание товара. Здесь вы можете узнать больше о его качестве, материалах и стиле.</p>
+
+                    <div class="product-page__sizes">
+                        <h3 class="product-page__subtitle">Выберите размер:</h3>
+                        <div class="product-page__size-selector">
+                            <button class="product-page__size-btn">S</button>
+                            <button class="product-page__size-btn">M</button>
+                            <button class="product-page__size-btn">L</button>
+                            <button class="product-page__size-btn">XL</button>
+                        </div>
+                    </div>
+
+                    <button class="product-page__add-to-cart button">Добавить в корзину</button>
+
+                    <div class="product-page__details">
+                        <h3 class="product-page__subtitle">Описание</h3>
+                        <ul class="product-page__details-list">
+                            <li><strong>Состав:</strong> 95% хлопок, 5% эластан</li>
+                            <li><strong>Уход:</strong> Деликатная стирка при 30°C. Точные инструкции по уходу см. на этикетке.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Конец ОСНОВНОГО КОНТЕНТА -->
+
+    <!-- ПОДВАЛ -->
+    <footer class="footer">
+        <div class="footer__container">
+            <div class="footer__contacts">
+                <h3 class="footer__heading">Контакты</h3>
+                <p>Email: info@legitwear.com</p>
+                <p>Телефон: +7 (XXX) XXX-XX-XX</p>
+            </div>
+            <div class="footer__social social">
+                <h3 class="footer__heading">Мы в соцсетях</h3>
+                <ul class="social__list">
+                    <li class="social__item"><a href="#" class="social__link" aria-label="ВКонтакте">VK</a></li>
+                    <li class="social__item"><a href="#" class="social__link" aria-label="Telegram">TG</a></li>
+                </ul>
+            </div>
+            <div class="footer__copyright">
+                <p>&copy; 2025 LegitWear. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- Конец ПОДВАЛА -->
+
+    <script src="js/script.js"></script>
+</body>
+</html>

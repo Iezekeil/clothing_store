@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LegitWear - Каталог товаров</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- ШАПКА -->
+    <header class="header">
+        <div class="header__container">
+            <a href="index.html" class="header__logo">LegitWear</a>
+            <nav class="header__nav nav">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="index.html" class="nav__link">Главная</a></li>
+                    <li class="nav__item"><a href="catalog.html" class="nav__link">Каталог</a></li>
+                </ul>
+            </nav>
+            <div class="header__icons icons">
+                <div class="header__search-wrapper">
+                    <input type="text" class="search-input" placeholder="Поиск...">
+                </div>
+                <a href="#" class="header__icon-btn js-search-btn" aria-label="Поиск">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+                <a href="cart.html" class="header__icon-btn header__cart-wrapper" aria-label="Корзина">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 10V6C8 3.79086 9.79086 2 12 2C14.2091 2 16 3.79086 16 6V10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M3 10H21L19.6421 20.2105C19.5607 20.6865 19.1413 21 18.6559 21H5.34409C4.85873 21 4.43934 20.6865 4.35789 20.2105L3 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="header__cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+    <!-- Конец ШАПКИ -->
+
+    <!-- ОСНОВНОЙ КОНТЕНТ -->
+    <main class="main">
+        <!-- ХЛЕБНЫЕ КРОШКИ -->
+        <section class="breadcrumbs__section">
+            <div class="breadcrumbs__container breadcrumbs">
+                <a href="index.html" class="breadcrumbs__link">Главная</a>
+                <span class="breadcrumbs__separator">></span>
+                <span class="breadcrumbs__current">Каталог</span>
+            </div>
+        </section>
+        <!-- Конец ХЛЕБНЫХ КРОШЕК -->
+
+        <!-- ЗАГОЛОВОК КАТАЛОГА -->
+        <section class="catalog-page__header">
+            <div class="catalog-page__container hero__container"> <!-- Reusing hero__container for consistent max-width/padding -->
+                <h1 class="catalog-page__title hero__title">Каталог товаров</h1>
+            </div>
+        </section>
+        <!-- Конец ЗАГОЛОВКА КАТАЛОГА -->
+
+        <!-- КОНТЕЙНЕР КАТАЛОГА (САЙДБАР + КОНТЕНТ) -->
+        <div class="catalog__container">
+            <aside class="sidebar">
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span>Категории</span>
+                        <span class="accordion-icon"></span>
+                    </button>
+                    <div class="accordion-panel is-open">
+                        <div class="sidebar__filter-buttons">
+                            <button class="filter-btn active" data-filter="all">Все категории</button>
+                            <button class="filter-btn" data-filter="outerwear">Верхняя одежда</button>
+                            <button class="filter-btn" data-filter="jeans">Нижняя одежда</button>
+                            <button class="filter-btn" data-filter="shoes">Обувь</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span>Цена</span>
+                        <span class="accordion-icon"></span>
+                    </button>
+                    <div class="accordion-panel">
+                        <div class="sidebar__price-group">
+                            <label class="sidebar__label">от <input type="number" class="sidebar__price-input" placeholder="0"></label>
+                            <label class="sidebar__label">до <input type="number" class="sidebar__price-input" placeholder="10000"></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span>Размеры</span>
+                        <span class="accordion-icon"></span>
+                    </button>
+                    <div class="accordion-panel">
+                        <ul class="sidebar__list">
+                            <li class="sidebar__item">
+                                <label class="sidebar__label custom-checkbox">
+                                    <input type="checkbox" name="size" value="xs">
+                                    <span class="checkmark"></span> XS
+                                </label>
+                            </li>
+                            <li class="sidebar__item">
+                                <label class="sidebar__label custom-checkbox">
+                                    <input type="checkbox" name="size" value="s">
+                                    <span class="checkmark"></span> S
+                                </label>
+                            </li>
+                            <li class="sidebar__item">
+                                <label class="sidebar__label custom-checkbox">
+                                    <input type="checkbox" name="size" value="m">
+                                    <span class="checkmark"></span> M
+                                </label>
+                            </li>
+                            <li class="sidebar__item">
+                                <label class="sidebar__label custom-checkbox">
+                                    <input type="checkbox" name="size" value="l">
+                                    <span class="checkmark"></span> L
+                                </label>
+                            </li>
+                            <li class="sidebar__item">
+                                <label class="sidebar__label custom-checkbox">
+                                    <input type="checkbox" name="size" value="xl">
+                                    <span class="checkmark"></span> XL
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <button class="sidebar__button button">Применить</button>
+            </aside>
+
+            <div class="catalog__content">
+                <div class="product-grid">
+                    <a href="#" class="product-card__link-wrapper">
+                        <div class="product-grid__item product-card" data-category="outerwear" data-description="Легендарный пуховик THE NORTH FACE 1996 года в черном цвете. Идеально подходит для холодной зимы, обеспечивает тепло и комфорт.">
+                            <img src="https://img.poizon.ru/4YspJuylqC9DPfrZeOn7ZtwbLVfrofBFLtbCaGadqQE/w:768/g:no/el:1/aHR0cHM6Ly9zdGF0aWMucG9pem9uLnJ1L3Byby1pbWcvb3JpZ2luLWltZy8yMDIyMDUyMy84MzMzZWIzZDkxMGY0OWQ1YjI1NmI4YzFiZjY4NDQ3NS5qcGc" alt="Название товара 1" class="product-card__image">
+                            <h3 class="product-card__title">THE NORTH FACE 1996 Collection Down Jacket Winter Unisex Black</h3>
+                            <p class="product-card__price">22 162 ₽</p>
+                            <button class="product-card__button button">смотреть</button>
+                        </div>
+                    </a>
+                    <a href="#" class="product-card__link-wrapper">
+                        <div class="product-grid__item product-card" data-category="outerwear" data-description="Коллаборация YEEZY, GAP и Balenciaga. Худи с принтом голубя в темно-сером цвете. Оверсайз крой.">
+                            <img src="https://img.poizon.ru/31MvEgDoFuPSyTAxQnPtqTu0OtuWAQ1lb2Qwmw0regs/w:768/g:no/el:1/aHR0cHM6Ly9zdGF0aWMucG9pem9uLnJ1L3Byby1pbWcvb3JpZ2luLWltZy8yMDIyMTAyMC8wNWU2ZTM0YjkzZmM0MWI5OTFjNjQxZjM3NjM4NjlkNS5qcGc" alt="Название товара 2" class="product-card__image">
+                            <h3 class="product-card__title">YEEZY X GAP X Balenciaga Dove Hoodie Dark Grey</h3>
+                            <p class="product-card__price">16 990 ₽</p>
+                            <button class="product-card__button button">смотреть</button>
+                        </div>
+                    </a>
+                    <a href="#" class="product-card__link-wrapper">
+                        <div class="product-grid__item product-card" data-category="outerwear" data-description="Ретро-пуховик THE NORTH FACE 1996 с принтом. Наполнитель 700-fill down обеспечивает превосходную теплоизоляцию.">
+                            <img src="https://img.poizon.ru/oceJJiIlWTtMi5_Ht8K5IVLkoN1XHFVnhPuWM2wvUUY/w:768/g:no/el:1/aHR0cHM6Ly9zdGF0aWMucG9pem9uLnJ1L3Byby1pbWcvb3JpZ2luLWltZy8yMDIyMDgxMC8xY2FlOTc0Mzc3Y2Y0OWQ1OWQxYzQ2ZDBmMjc1OGEyNy5qcGc" alt="Название товара 3" class="product-card__image">
+                            <h3 class="product-card__title">THE NORTH FACE 1996 Printed Retro Nuptse 700 Fill Packable Jacket</h3>
+                            <p class="product-card__price">17 781 ₽</p>
+                            <button class="product-card__button button">смотреть</button>
+                        </div>
+                    </a>
+                    <a href="#" class="product-card__link-wrapper">
+                        <div class="product-grid__item product-card" data-category="jeans" data-description="Вязаные спортивные штаны от Nike. Мягкий и приятный к телу материал. Идеально для спорта и отдыха.">
+                            <img src="https://img.poizon.ru/p6GuJzru5x9QWr6KMeDLTzhqauT8iDC6V6uIfxuI5H0/w:768/g:no/el:1/aHR0cHM6Ly9zdGF0aWMucG9pem9uLnJ1L2h0dHBzOi8vcWluaXUuZGV3dWNkbi5jb20vRnF1ZkJiSmhFUlVKMXRuNjFUOUdGM0MzaTVfTg" alt="Название товара 4" class="product-card__image">
+                            <h3 class="product-card__title">Nike Knitted Sweatpants Men</h3>
+                            <p class="product-card__price">5 746 ₽</p>
+                            <button class="product-card__button button">смотреть</button>
+                        </div>
+                    </a>
+                    <a href="#" class="product-card__link-wrapper">
+                        <div class="product-grid__item product-card" data-category="jeans" data-description="Черные вязаные спортивные штаны от New Balance. Классический дизайн и непревзойденный комфорт.">
+                            <img src="https://img.poizon.ru/31vmcxCXTczu_OZBwf9QPtZ9m4V5jdy1PykpmNyxk2E/w:768/g:no/el:1/aHR0cHM6Ly9zdGF0aWMucG9pem9uLnJ1L3Byby1pbWcvb3JpZ2luLWltZy8yMDIzMDEwOS82NzY0NmU5OTRhNGU0Y2NkYWQ1NjM4YjU4ZmJhZDAyMC5qcGc" alt="Название товара 5" class="product-card__image">
+                            <h3 class="product-card__title">New Balance Knitted Sweatpants Men Black</h3>
+                            <p class="product-card__price">5 006 ₽</p>
+                            <button class="product-card__button button">смотреть</button>
+                        </div>
+                    </a>
+                    <a href="#" class="product-card__link-wrapper">
+                        <div class="product-grid__item product-card" data-category="jeans" data-description="Классические синие джинсы Levis. Прочный деним и проверенный временем крой.">
+                            <img src="https://img.poizon.ru/kju-Crt5zTbWO8W_SSga6t7eYmoCAhiXDjudtFRal5k/w:768/g:no/el:1/aHR0cHM6Ly9zdGF0aWMucG9pem9uLnJ1L3Byby1pbWcvb3JpZ2luLWltZy8yMDIyMDYwMS9hZDEzY2MwN2IyMGI0ODk1YTQ0NWIzYzZiNzA2MWNlMi5qcGc" alt="Название товара 6" class="product-card__image">
+                            <h3 class="product-card__title">Levis Jeans Men Blue</h3>
+                            <p class="product-card__price">13 242 ₽</p>
+                            <button class="product-card__button button">смотреть</button>
+                        </div>
+                    </a>
+                    <a href="#" class="product-card__link-wrapper">
+                        <div class="product-grid__item product-card" data-category="shoes" data-description="Кроссовки Asics Gel-Kahana 8 для бега по пересеченной местности. Отличная амортизация и сцепление.">
+                            <img src="https://img.poizon.ru/ROiu_Tn23p5rIdv_pBMl_j2YFJxthgF7XHCfJUF4smE/w:768/g:no/el:1/aHR0cHM6Ly9zdGF0aWMucG9pem9uLnJ1L3Byby1pbWcvb3JpZ2luLWltZy8yMDIyMTIxNi80Y2MzNWZiOGRjNmE0NTJkODE1ZWM0ZjE0MWMwYWVmMi5qcGc" alt="Название товара 7" class="product-card__image">
+                            <h3 class="product-card__title">Asics Gel-Kahana 8</h3>
+                            <p class="product-card__price">12 990 ₽</p>
+                            <button class="product-card__button button">смотреть</button>
+                        </div>
+                    </a>
+                    <a href="#" class="product-card__link-wrapper">
+                        <div class="product-grid__item product-card" data-category="shoes" data-description="Стильные кроссовки New Balance 2002R из 'Protection Pack'. Уникальный дизайн и премиальные материалы.">
+                            <img src="https://img.poizon.ru/_WEDhTlDuMSQqNaxGgb6pMT50sWwqEhqInvOXroS9ow/w:768/g:no/el:1/aHR0cHM6Ly9zdGF0aWMucG9pem9uLnJ1L3Byby1pbWcvb3JpZ2luLWltZy8yMDIyMDMyNC80OWMzZDc5ZjgyODE0ZDAzYTc1NDdkODA1M2Q2ZTUyNS5qcGc" alt="Название товара 8" class="product-card__image">
+                            <h3 class="product-card__title">New Balance 2002R Protection Pack Rain Cloud</h3>
+                            <p class="product-card__price">9 169 ₽</p>
+                            <button class="product-card__button button">смотреть</button>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Конец КОНТЕЙНЕРА КАТАЛОГА -->
+    </main>
+    <!-- Конец ОСНОВНОГО КОНТЕНТА -->
+
+    <!-- ПОДВАЛ -->
+    <footer class="footer">
+        <div class="footer__container">
+            <div class="footer__contacts">
+                <h3 class="footer__heading">Контакты</h3>
+                <p>Email: info@legitwear.com</p>
+                <p>Телефон: +7 (XXX) XXX-XX-XX</p>
+            </div>
+            <div class="footer__social social">
+                <h3 class="footer__heading">Мы в соцсетях</h3>
+                <ul class="social__list">
+                    <li class="social__item"><a href="#" class="social__link" aria-label="ВКонтакте">VK</a></li>
+                    <li class="social__item"><a href="#" class="social__link" aria-label="Telegram">TG</a></li>
+                </ul>
+            </div>
+            <div class="footer__copyright">
+                <p>&copy; 2025 LegitWear. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- Конец ПОДВАЛА -->
+
+    <script src="js/script.js"></script>
+
+    <!-- МОДАЛЬНОЕ ОКНО ТОВАРА -->
+    <div id="product-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close-btn">×</button>
+            <div class="modal-body">
+                <div class="modal-image-wrapper">
+                    <img id="modal-img" src="" alt="Product Image">
+                </div>
+                <div class="modal-info">
+                    <h2 id="modal-title" class="modal-title"></h2>
+                    <p id="modal-price" class="modal-price"></p>
+                    <p class="modal-description">
+                        Это базовое описание товара. Оно будет одинаковым для всех товаров, так как мы используем модальное окно.
+                    </p>
+                    <div class="modal-sizes">
+                        <h3 class="modal-subtitle">Выберите размер:</h3>
+                        <div id="modal-size-selector" class="modal-size-selector">
+                            <button class="product-page__size-btn">S</button>
+                            <button class="product-page__size-btn">M</button>
+                            <button class="product-page__size-btn">L</button>
+                            <button class="product-page__size-btn">XL</button>
+                        </div>
+                    </div>
+                    <button id="modal-add-to-cart" class="button">Добавить в корзину</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Конец МОДАЛЬНОГО ОКНА ТОВАРА -->
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оформление заказа - LegitWear</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ШАПКА -->
+    <!-- Новая шапка оформления заказа -->
+    <header class="checkout-header">
+        <div class="checkout-header__container">
+            <a href="catalog.html" class="checkout-header__back">
+                ← Ваш заказ
+            </a>
+            <button class="checkout-header__clear" id="clear-cart-btn">Очистить корзину</button>
+        </div>
+    </header>
+    <!-- Конец ШАПКИ -->
+
+    <!-- ОСНОВНОЙ КОНТЕНТ -->
+    <main class="checkout-main">
+        <div class="checkout-container">
+            
+            <!-- ЛЕВАЯ КОЛОНКА: ФОРМА -->
+            <div class="checkout-form-section">
+                
+                <!-- Блок ФИО -->
+                <div class="form-group">
+                    <label class="form-label">ФИО</label>
+                    <input id="fio" type="text" class="form-input" placeholder="Иванов Иван Иванович">
+                </div>
+
+                <!-- Блок Телефон и Email (в одну строку) -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Телефон</label>
+                        <input id="phone" type="tel" class="form-input" placeholder="+7 (___) ___-__-__">
+                        <span class="error-message" data-for="phone"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input id="email" type="email" class="form-input" placeholder="example@mail.ru">
+                        <span class="error-message" data-for="email"></span>
+                    </div>
+                </div>
+
+                <!-- Блок Доставки -->
+                <h2 class="section-title">Доставка</h2>
+                <div class="form-group form-group--large-margin">
+                    <label class="form-label">Город</label>
+                    <input id="address" type="text" class="form-input">
+                    <p class="input-hint">Например: Москва, ул. Пушкина, д. 10</p>
+
+                </div>
+
+                <!-- Промокод -->
+                <div class="form-group">
+                    <label class="form-label">Промокод</label>
+                    <input type="text" class="form-input">
+                </div>
+
+
+
+
+            </div>
+
+            <!-- ПРАВАЯ КОЛОНКА: ТОВАРЫ -->
+            <div class="checkout-summary-section">
+                <!-- Сюда JS будет вставлять товары -->
+                <div id="cart-items-container" class="order-items-list">
+                    <!-- Товары... -->
+                </div>
+
+                <div class="order-total">
+                    <div class="order-total__row">
+                        <span>Итоговая сумма:</span>
+                        <span id="cart-total-price">0 р.</span>
+                    </div>
+                </div>
+                
+                <button class="checkout-btn desktop-only">Оформить заказ</button>
+            </div>
+
+        </div>
+    </main>
+    <!-- Конец ОСНОВНОГО КОНТЕНТА -->
+
+    <script src="js/script.js"></script>
+</body>
+</html>
