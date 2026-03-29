@@ -122,8 +122,11 @@ document.addEventListener('DOMContentLoaded', () => {
         // Делегирование кликов по сетке товаров для открытия модального окна
         productGridForModal.addEventListener('click', (e) => {
             const card = e.target.closest('.product-card');
-            if (card) {
-                e.preventDefault(); // Предотвращаем переход по ссылке, если он есть
+            const button = e.target.closest('.product-card__button'); // Кнопка "Смотреть"
+            
+            // Открываем модалку ТОЛЬКО если кликнули на кнопку "Смотреть"
+            if (card && button) {
+                e.preventDefault(); // Предотвращаем переход на страницу товара
                 
                 // Собираем данные из карточки
                 const product = {
@@ -183,6 +186,74 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartContainer = document.getElementById('cart-items-container');
     let currentDiscount = 1; // 1 = 100% (нет скидки)
     let appliedPromoCode = ''; // Храним название примененного промокода
+    
+    // БАЗА ДАННЫХ ТОВАРОВ (Для динамической страницы)
+    const productsDB = [
+        {
+            id: 'the-north-face-1996-collection-down-jacket-winter-unisex-black',
+            name: 'THE NORTH FACE 1996 Collection Down Jacket Winter Unisex Black',
+            price: 22162,
+            image: 'https://img.poizon.ru/4YspJuylqC9DPfrZeOn7ZtwbLVfrofBFLtbCaGadqQE/w:768/g:no/el:1/aHR0cHM6Ly9zdGF0aWMucG9pem9uLnJ1L3Byby1pbWcvb3JpZ2luLWltZy8yMDIyMDUyMy84MzMzZWIzZDkxMGY0OWQ1YjI1NmI4YzFiZjY4NDQ3NS5qcGc',
+            description: 'Легендарный пуховик THE NORTH FACE 1996 года в черном цвете. Идеально подходит для холодной зимы, обеспечивает тепло и комфорт.',
+            sizes: ['s', 'm']
+        },
+        {
+            id: 'yeezy-x-gap-x-balenciaga-dove-hoodie-dark-grey',
+            name: 'YEEZY X GAP X Balenciaga Dove Hoodie Dark Grey',
+            price: 16990,
+            image: 'https://img.poizon.ru/31MvEgDoFuPSyTAxQnPtqTu0OtuWAQ1lb2Qwmw0regs/w:768/g:no/el:1/aHR0cHM6Ly9zdGF0aWMucG9pem9uLnJ1L3Byby1pbWcvb3JpZ2luLWltZy8yMDIyMTAyMC8wNWU2ZTM0YjkzZmM0MWI5OTFjNjQxZjM3NjM4NjlkNS5qcGc',
+            description: 'Коллаборация YEEZY, GAP и Balenciaga. Худи с принтом голубя в темно-сером цвете. Оверсайз крой.',
+            sizes: ['m', 'l', 'xl']
+        },
+        {
+            id: 'the-north-face-1996-printed-retro-nuptse-700-fill-packable-jacket',
+            name: 'THE NORTH FACE 1996 Printed Retro Nuptse 700 Fill Packable Jacket',
+            price: 17781,
+            image: 'https://img.poizon.ru/oceJJiIlWTtMi5_Ht8K5IVLkoN1XHFVnhPuWM2wvUUY/w:768/g:no/el:1/aHR0cHM6Ly9zdGF0aWMucG9pem9uLnJ1L3Byby1pbWcvb3JpZ2luLWltZy8yMDIyMDgxMC8xY2FlOTc0Mzc3Y2Y0OWQ1OWQxYzQ2ZDBmMjc1OGEyNy5qcGc',
+            description: 'Ретро-пуховик THE NORTH FACE 1996 с принтом. Наполнитель 700-fill down обеспечивает превосходную теплоизоляцию.',
+            sizes: ['s', 'l']
+        },
+        {
+            id: 'nike-knitted-sweatpants-men',
+            name: 'Nike Knitted Sweatpants Men',
+            price: 5746,
+            image: 'https://img.poizon.ru/p6GuJzru5x9QWr6KMeDLTzhqauT8iDC6V6uIfxuI5H0/w:768/g:no/el:1/aHR0cHM6Ly9zdGF0aWMucG9pem9uLnJ1L2h0dHBzOi8vcWluaXUuZGV3dWNkbi5jb20vRnF1ZkJiSmhFUlVKMXRuNjFUOUdGM0MzaTVfTg',
+            description: 'Вязаные спортивные штаны от Nike. Мягкий и приятный к телу материал. Идеально для спорта и отдыха.',
+            sizes: ['xs', 's', 'm']
+        },
+        {
+            id: 'new-balance-knitted-sweatpants-men-black',
+            name: 'New Balance Knitted Sweatpants Men Black',
+            price: 5006,
+            image: 'https://img.poizon.ru/31vmcxCXTczu_OZBwf9QPtZ9m4V5jdy1PykpmNyxk2E/w:768/g:no/el:1/aHR0cHM6Ly9zdGF0aWMucG9pem9uLnJ1L3Byby1pbWcvb3JpZ2luLWltZy8yMDIzMDEwOS82NzY0NmU5OTRhNGU0Y2NkYWQ1NjM4YjU4ZmJhZDAyMC5qcGc',
+            description: 'Черные вязаные спортивные штаны от New Balance. Классический дизайн и непревзойденный комфорт.',
+            sizes: ['l', 'xl']
+        },
+        {
+            id: 'levis-jeans-men-blue',
+            name: 'Levis Jeans Men Blue',
+            price: 13242,
+            image: 'https://img.poizon.ru/kju-Crt5zTbWO8W_SSga6t7eYmoCAhiXDjudtFRal5k/w:768/g:no/el:1/aHR0cHM6Ly9zdGF0aWMucG9pem9uLnJ1L3Byby1pbWcvb3JpZ2luLWltZy8yMDIyMDYwMS9hZDEzY2MwN2IyMGI0ODk1YTQ0NWIzYzZiNzA2MWNlMi5qcGc',
+            description: 'Классические синие джинсы Levis. Прочный деним и проверенный временем крой.',
+            sizes: ['s', 'm']
+        },
+        {
+            id: 'asics-gel-kahana-8',
+            name: 'Asics Gel-Kahana 8',
+            price: 12990,
+            image: 'https://img.poizon.ru/ROiu_Tn23p5rIdv_pBMl_j2YFJxthgF7XHCfJUF4smE/w:768/g:no/el:1/aHR0cHM6Ly9zdGF0aWMucG9pem9uLnJ1L3Byby1pbWcvb3JpZ2luLWltZy8yMDIyMTIxNi80Y2MzNWZiOGRjNmE0NTJkODE1ZWM0ZjE0MWMwYWVmMi5qcGc',
+            description: 'Кроссовки Asics Gel-Kahana 8 для бега по пересеченной местности. Отличная амортизация и сцепление.',
+            sizes: ['m', 'l', 'xl']
+        },
+        {
+            id: 'new-balance-2002r-protection-pack-rain-cloud',
+            name: 'New Balance 2002R Protection Pack Rain Cloud',
+            price: 9169,
+            image: 'https://img.poizon.ru/_WEDhTlDuMSQqNaxGgb6pMT50sWwqEhqInvOXroS9ow/w:768/g:no/el:1/aHR0cHM6Ly9zdGF0aWMucG9pem9uLnJ1L3Byby1pbWcvb3JpZ2luLWltZy8yMDIyMDMyNC80OWMzZDc5ZjgyODE0ZDAzYTc1NDdkODA1M2Q2ZTUyNS5qcGc',
+            description: 'Стильные кроссовки New Balance 2002R из Protection Pack. Уникальный дизайн и премиальные материалы.',
+            sizes: ['m', 'l']
+        }
+    ];
     
     /**
      * @description Отображает товары из корзины на странице cart.html.
@@ -575,5 +646,77 @@ document.addEventListener('DOMContentLoaded', () => {
             link.classList.add('active');
         }
     });
+
+    // 10. ДИНАМИЧЕСКАЯ СТРАНИЦА ТОВАРА И ССЫЛКИ
+    // Заменяем href во всех карточках так, чтобы они вели на product.html с правильным ID
+    document.querySelectorAll('.product-card').forEach(card => {
+        const titleElement = card.querySelector('.product-card__title');
+        if (titleElement) {
+            const title = titleElement.textContent;
+            const id = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+            const linkWrapper = card.closest('.product-card__link-wrapper');
+            if (linkWrapper) {
+                linkWrapper.href = `product.html?id=${id}`;
+            }
+        }
+    });
+
+    // Подгрузка данных, если мы находимся на product.html
+    if (window.location.pathname.includes('product.html')) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+        const product = productsDB.find(p => p.id === productId);
+
+        const infoContainer = document.querySelector('.product-page__info');
+        const imgContainer = document.querySelector('.product-page__image-wrapper');
+
+        if (product && infoContainer) {
+            // Подставляем данные в HTML
+            document.querySelector('.product-page__title').textContent = product.name;
+            document.querySelector('.product-page__price').textContent = formatPrice(product.price);
+            document.querySelector('.product-page__description').textContent = product.description;
+            document.querySelector('.product-page__image').src = product.image;
+            document.querySelector('.product-page__image').alt = product.name;
+            
+            // Рендерим размеры
+            const sizesContainer = document.querySelector('.product-page__size-selector');
+            if (sizesContainer) {
+                sizesContainer.innerHTML = '';
+                product.sizes.forEach(size => {
+                    sizesContainer.innerHTML += `<button class="product-page__size-btn">${size.toUpperCase()}</button>`;
+                });
+                
+                sizesContainer.addEventListener('click', (e) => {
+                    if (e.target.matches('.product-page__size-btn')) {
+                        sizesContainer.querySelectorAll('.product-page__size-btn').forEach(b => b.classList.remove('active'));
+                        e.target.classList.add('active');
+                    }
+                });
+            }
+
+            // Добавление в корзину
+            const addToCartBtn = document.querySelector('.product-page__add-to-cart');
+            if (addToCartBtn) {
+                addToCartBtn.addEventListener('click', () => {
+                    const activeSizeBtn = document.querySelector('.product-page__size-selector .active');
+                    if (!activeSizeBtn) {
+                        showNotification('Пожалуйста, выберите размер!');
+                        return;
+                    }
+                    addToCart({
+                        id: product.name,
+                        name: product.name,
+                        price: product.price,
+                        image: product.image,
+                        size: activeSizeBtn.textContent.trim()
+                    });
+                });
+            }
+        } else if (infoContainer && imgContainer) {
+            // Товар не найден (неверный ID или открыли пустой product.html)
+            infoContainer.innerHTML = '<h2>Товар не найден</h2><br><p>Убедитесь, что вы перешли по правильной ссылке.</p><br><a href="catalog.html" class="button">Вернуться в каталог</a>';
+            imgContainer.style.display = 'none';
+        }
+    }
 
 });
