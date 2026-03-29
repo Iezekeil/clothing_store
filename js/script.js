@@ -181,6 +181,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // (Рендер товаров, изменение количества, удаление, очистка)
 
     const cartContainer = document.getElementById('cart-items-container');
+    let currentDiscount = 1; // 1 = 100% (нет скидки)
+    let appliedPromoCode = ''; // Храним название примененного промокода
     
     /**
      * @description Отображает товары из корзины на странице cart.html.
@@ -222,7 +224,14 @@ document.addEventListener('DOMContentLoaded', () => {
             cartContainer.insertAdjacentHTML('beforeend', html);
         });
 
-        if (totalPriceEl) totalPriceEl.textContent = formatPrice(total);
+        if (totalPriceEl) {
+            const finalTotal = Math.round(total * currentDiscount);
+            if (currentDiscount < 1) {
+                totalPriceEl.innerHTML = `<s style="font-size: 14px; color: #999; margin-right: 10px;">${formatPrice(total)}</s> ${formatPrice(finalTotal)}`;
+            } else {
+                totalPriceEl.textContent = formatPrice(total);
+            }
+        }
     };
 
     // Управление корзиной (используем делегирование событий)
@@ -257,10 +266,36 @@ document.addEventListener('DOMContentLoaded', () => {
             clearBtn.addEventListener('click', () => {
                 if (confirm('Вы уверены, что хотите очистить корзину?')) {
                     saveCart([]);
+                    currentDiscount = 1;
+                    appliedPromoCode = '';
                     renderCartPage();
                     updateCartIcon();
                     showNotification('Корзина очищена');
                 }
+            });
+        }
+
+        // Логика промокода
+        const applyPromoBtn = document.getElementById('apply-promo-btn');
+        const promoInput = document.getElementById('promocode');
+        
+        if (applyPromoBtn && promoInput) {
+            applyPromoBtn.addEventListener('click', () => {
+                const code = promoInput.value.trim().toUpperCase();
+                if (code === 'LEGIT20') {
+                    currentDiscount = 0.8;
+                    appliedPromoCode = code;
+                    showNotification('Промокод LEGIT20 применен: Скидка 20%');
+                } else if (code === 'SKIDKA10') {
+                    currentDiscount = 0.9;
+                    appliedPromoCode = code;
+                    showNotification('Промокод SKIDKA10 применен: Скидка 10%');
+                } else {
+                    currentDiscount = 1;
+                    appliedPromoCode = '';
+                    showNotification('Неверный или просроченный промокод');
+                }
+                renderCartPage();
             });
         }
     }
@@ -334,11 +369,19 @@ document.addEventListener('DOMContentLoaded', () => {
             message += `<b>Адрес:</b> ${addressInput.value.trim()}\n\n`;
             message += `<b>Товары в заказе:</b>\n`;
 
-            let totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            let originalTotalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            let discountMultiplier = typeof currentDiscount !== 'undefined' ? currentDiscount : 1;
+            let finalTotalPrice = Math.round(originalTotalPrice * discountMultiplier);
+
             cart.forEach(item => {
                 message += `- ${item.name} (Размер: ${item.size}) - ${item.quantity} шт. x ${formatPrice(item.price)}\n`;
             });
-            message += `\n<b>Итоговая сумма:</b> ${formatPrice(totalPrice)}`;
+            if (discountMultiplier < 1) {
+                const discountPercent = Math.round((1 - discountMultiplier) * 100);
+                const codeName = typeof appliedPromoCode !== 'undefined' && appliedPromoCode ? appliedPromoCode : 'Да';
+                message += `\n🎁 <b>Промокод применен:</b> ${codeName} (-${discountPercent}%)\n`;
+            }
+            message += `\n<b>Итоговая сумма:</b> ${formatPrice(finalTotalPrice)}`;
 
             // Отправка в Telegram
             try {
@@ -413,24 +456,65 @@ document.addEventListener('DOMContentLoaded', () => {
     // 6. ФИЛЬТРАЦИЯ И АККОРДЕОН В КАТАЛОГЕ
     const sidebar = document.querySelector('.sidebar');
     if (sidebar) {
-        // Фильтрация по категориям
         const filterButtonsContainer = sidebar.querySelector('.sidebar__filter-buttons');
         const productCardsOnCatalog = document.querySelectorAll('.catalog__content .product-card');
+        const applyBtn = sidebar.querySelector('.sidebar__button');
+        const priceFromInput = sidebar.querySelectorAll('.sidebar__price-input')[0];
+        const priceToInput = sidebar.querySelectorAll('.sidebar__price-input')[1];
+        const sizeCheckboxes = sidebar.querySelectorAll('input[name="size"]');
+
+        // Подготовим фейковые размеры для товаров, если их нет, чтобы мы могли видеть как работает фильтр
+        productCardsOnCatalog.forEach((card, index) => {
+            if (!card.dataset.sizes) {
+                const testSizes = ['s,m', 'm,l,xl', 's,l', 'xs,s,m', 'l,xl'];
+                card.dataset.sizes = testSizes[index % testSizes.length];
+            }
+        });
+
+        const applyFilters = () => {
+            const activeCategoryBtn = filterButtonsContainer ? filterButtonsContainer.querySelector('.active') : null;
+            const activeCategory = activeCategoryBtn ? activeCategoryBtn.dataset.filter : 'all';
+            
+            const priceFrom = parseFloat(priceFromInput.value) || 0;
+            const priceTo = parseFloat(priceToInput.value) || Infinity;
+            const selectedSizes = Array.from(sizeCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
+
+            productCardsOnCatalog.forEach(card => {
+                // 1. Проверка категории
+                let isVisible = (activeCategory === 'all' || card.dataset.category === activeCategory);
+
+                // 2. Проверка цены
+                const priceText = card.querySelector('.product-card__price').textContent;
+                const priceValue = parseFloat(priceText.replace(/[^0-9]/g, ''));
+                if (priceValue < priceFrom || priceValue > priceTo) {
+                    isVisible = false;
+                }
+
+                // 3. Проверка размера (если выбраны какие-то размеры)
+                if (isVisible && selectedSizes.length > 0) {
+                    const cardSizes = card.dataset.sizes ? card.dataset.sizes.split(',') : []; 
+                    const hasSize = selectedSizes.some(size => cardSizes.includes(size));
+                    if (!hasSize) {
+                        isVisible = false;
+                    }
+                }
+
+                card.closest('.product-card__link-wrapper').style.display = isVisible ? '' : 'none';
+            });
+        };
 
         if (filterButtonsContainer && productCardsOnCatalog.length > 0) {
             filterButtonsContainer.addEventListener('click', (e) => {
                 if (!e.target.matches('.filter-btn')) return;
-
                 filterButtonsContainer.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
                 e.target.classList.add('active');
-
-                const filter = e.target.dataset.filter;
-
-                productCardsOnCatalog.forEach(card => {
-                    const isVisible = (filter === 'all' || card.dataset.category === filter);
-                    card.closest('.product-card__link-wrapper').style.display = isVisible ? '' : 'none';
-                });
+                applyFilters(); // Фильтруем сразу при смене категории
             });
+        }
+        
+        if (applyBtn) {
+            // Фильтруем по клику на "Применить" (для цены и размеров)
+            applyBtn.addEventListener('click', applyFilters);
         }
 
         // Логика аккордеона
@@ -479,5 +563,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // 8. ИНИЦИАЛИЗАЦИЯ
     // (Функции, которые должны выполниться при загрузке страницы)
     updateCartIcon();
+
+    // 9. АКТИВНОЕ СОСТОЯНИЕ НАВИГАЦИИ
+    const navLinks = document.querySelectorAll('.nav__link');
+    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+    
+    navLinks.forEach(link => {
+        const linkHref = link.getAttribute('href');
+        // Обрабатываем случаи, когда ссылка пустая (#) или ведет на главную
+        if (linkHref === currentPath || (currentPath === 'index.html' && linkHref === '#')) {
+            link.classList.add('active');
+        }
+    });
 
 });
