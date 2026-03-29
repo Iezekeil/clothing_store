@@ -477,4 +477,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // (Функции, которые должны выполниться при загрузке страницы)
     updateCartIcon();
 
+    // 9. АКТИВНОЕ СОСТОЯНИЕ НАВИГАЦИИ
+    const navLinks = document.querySelectorAll('.nav__link');
+    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+    
+    navLinks.forEach(link => {
+        const linkHref = link.getAttribute('href');
+        // Обрабатываем случаи, когда ссылка пустая (#) или ведет на главную
+        if (linkHref === currentPath || (currentPath === 'index.html' && linkHref === '#')) {
+            link.classList.add('active');
+        }
+    });
+
 });

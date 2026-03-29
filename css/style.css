@@ -8,8 +8,10 @@
 }
 
 /* Основные стили для body */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Inter', sans-serif;
     background-color: white;
     color: #333;
     line-height: 1.5;
@@ -53,6 +55,9 @@ button { font-family: inherit; }
     background-color: var(--white);
     padding: 20px 0;
     border-bottom: 1px solid var(--gray-border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .header__container {
@@ -79,9 +84,13 @@ button { font-family: inherit; }
     font-weight: bold;
     transition: all 0.2s ease-out;
 }
-.nav__link:hover {
+.nav__link:hover,
+.nav__link.active {
     color: #000;
     transform: translateY(-3px) scale(1.1);
+}
+.nav__link.active {
+    border-bottom: 2px solid #000;
 }
 
 /* Иконки (поиск, корзина) */
@@ -93,9 +102,6 @@ button { font-family: inherit; }
 }
 
 /* Поле поиска */
-.header__search-wrapper {
-    /* Этот блок остается в потоке для корректного отображения */
-}
 
 .search-input {
     width: 0;
@@ -514,7 +520,7 @@ button { font-family: inherit; }
 
 
 /* 6. СТРАНИЦА КОРЗИНЫ И ОФОРМЛЕНИЯ ЗАКАЗА */
-.checkout-header { padding: 25px 0; border-bottom: 1px solid #eee; margin-bottom: 40px; }
+.checkout-header { padding: 25px 0; border-bottom: 1px solid #eee; margin-bottom: 40px; position: sticky; top: 0; z-index: 100; background-color: var(--white); }
 .checkout-header__back { font-size: 22px; font-weight: bold; display: flex; align-items: center; gap: 10px; }
 .checkout-header__clear { border: none; background: none; color: #999; cursor: pointer; font-size: 14px; }
 .checkout-header__clear:hover { color: #e74c3c; }
