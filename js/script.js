@@ -186,6 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartContainer = document.getElementById('cart-items-container');
     let currentDiscount = 1; // 1 = 100% (нет скидки)
     let appliedPromoCode = ''; // Храним название примененного промокода
+
     
     // БАЗА ДАННЫХ ТОВАРОВ (Для динамической страницы)
     const productsDB = [
@@ -647,9 +648,68 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // 9. БУРГЕР МЕНЮ НА МОБИЛЬНЫХ
+    const burgerBtn = document.querySelector('.header__burger');
+    const headerNav = document.querySelector('.header__nav');
+    
+    if (burgerBtn && headerNav) {
+        burgerBtn.addEventListener('click', () => {
+            headerNav.classList.toggle('active');
+            
+            // Замена иконки бургера на "Крестик" и обратно
+            if (headerNav.classList.contains('active')) {
+                burgerBtn.innerHTML = `
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                `;
+            } else {
+                burgerBtn.innerHTML = `
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                `;
+            }
+        });
+    }
+
+    // 15. SKELETON-ЗАГРУЗКА ИЗОБРАЖЕНИЙ
+    document.querySelectorAll('.product-card__image').forEach(img => {
+        const wrapper = img.parentElement;
+        wrapper.classList.add('skeleton-loading');
+        
+        // Как только картинка загрузится (или если она уже загрузилась из кэша)
+        if (img.complete) {
+            wrapper.classList.remove('skeleton-loading');
+            img.style.opacity = '1';
+        } else {
+            img.addEventListener('load', () => {
+                wrapper.classList.remove('skeleton-loading');
+                img.style.opacity = '1';
+                img.style.transition = 'opacity 0.3s ease-in';
+            });
+            img.addEventListener('error', () => {
+                // Если картинка не загрузится (ошибка сервера poizon), снимаем скелетон
+                wrapper.classList.remove('skeleton-loading');
+            });
+        }
+    });
+
     // 10. ДИНАМИЧЕСКАЯ СТРАНИЦА ТОВАРА И ССЫЛКИ
     // Заменяем href во всех карточках так, чтобы они вели на product.html с правильным ID
-    document.querySelectorAll('.product-card').forEach(card => {
+    document.querySelectorAll('.product-card').forEach((card, index) => {
+        
+        // 10A. Анимация появления карточек (#14)
+        if (window.location.pathname.includes('catalog.html') || window.location.pathname.includes('index.html') || window.location.pathname === '/') {
+            card.style.opacity = '0';
+            setTimeout(() => {
+                card.classList.add('animate-up');
+            }, 200 * (index % 12)); // Задержку увеличил с 100 до 200 мс для более явного эффекта "волны"
+        }
+
         const titleElement = card.querySelector('.product-card__title');
         if (titleElement) {
             const title = titleElement.textContent;
