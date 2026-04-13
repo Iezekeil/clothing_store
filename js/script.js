@@ -67,8 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
      * @param {number} price - Цена для форматирования.
      * @returns {string} - Отформатированная строка.
      */
-    const formatPrice = (price) => {
-        return price.toLocaleString('ru-RU') + ' р.';
+    const formatPrice = (final_count) => {
+        return final_count.toLocaleString('ru-RU') + ' р.';
     };
 
 
