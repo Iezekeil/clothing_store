@@ -347,7 +347,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Логика промокода
+        // Логика промокода: применяет процентную скидку к итоговой сумме
         const applyPromoBtn = document.getElementById('apply-promo-btn');
         const promoInput = document.getElementById('promocode');
         
