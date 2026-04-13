@@ -232,7 +232,16 @@ button { font-family: inherit; }
 /* --- Секция "Наши преимущества" --- */
 .advantages { background-color: var(--section-bg); }
 .advantages__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
-.advantages__item { background: var(--white); padding: 30px; border-radius: 8px; }
+.advantages__item { 
+    background: var(--white); 
+    padding: 30px; 
+    border-radius: 8px; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.advantages__item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
 .advantages__item-title { font-size: 18px; margin-bottom: 10px; font-weight: bold; }
 
 /* /ОСНОВНОЙ КОНТЕНТ И СЕКЦИИ */
