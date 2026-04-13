@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * @returns {Array} - Массив объектов товаров в корзине.
      */
     const getCart = () => JSON.parse(localStorage.getItem('cart')) || [];
-    
+
     /**
      * @description Сохраняет данные корзины в Local Storage.
      * @param {Array} cart - Массив объектов товаров для сохранения.
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
             modalTitle.textContent = productData.name;
             modalPrice.textContent = formatPrice(productData.price);
             modalDescription.textContent = productData.description;
-            
+
             // Сбрасываем активный выбор размера
             const currentActive = modalSizeSelector.querySelector('.active');
             if (currentActive) {
@@ -123,11 +123,11 @@ document.addEventListener('DOMContentLoaded', () => {
         productGridForModal.addEventListener('click', (e) => {
             const card = e.target.closest('.product-card');
             const button = e.target.closest('.product-card__button'); // Кнопка "Смотреть"
-            
+
             // Открываем модалку ТОЛЬКО если кликнули на кнопку "Смотреть"
             if (card && button) {
                 e.preventDefault(); // Предотвращаем переход на страницу товара
-                
+
                 // Собираем данные из карточки
                 const product = {
                     id: card.querySelector('.product-card__title').textContent.trim(),
@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     image: card.querySelector('.product-card__image').src,
                     description: card.dataset.description || 'Описание для этого товара отсутствует.'
                 };
-                
+
                 openModal(product);
             }
         });
@@ -149,11 +149,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.target.classList.add('active');
             }
         });
-        
+
         // Добавление в корзину из модального окна
         modalAddToCartBtn.addEventListener('click', () => {
             const activeSizeBtn = modalSizeSelector.querySelector('.active');
-            
+
             if (!activeSizeBtn) {
                 showNotification('Пожалуйста, выберите размер!');
                 return;
@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentDiscount = 1; // 1 = 100% (нет скидки)
     let appliedPromoCode = ''; // Храним название примененного промокода
 
-    
+
     // БАЗА ДАННЫХ ТОВАРОВ (Для динамической страницы)
     const productsDB = [
         {
@@ -255,7 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sizes: ['m', 'l']
         }
     ];
-    
+
     /**
      * @description Отображает товары из корзины на странице cart.html.
      */
@@ -276,7 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         cart.forEach((item, index) => {
             total += item.price * item.quantity;
-            
+
             const html = `
                 <div class="order-item" data-index="${index}">
                     <img src="${item.image}" class="order-item__img" alt="${item.name}">
@@ -350,7 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Логика промокода: применяет процентную скидку к итоговой сумме
         const applyPromoBtn = document.getElementById('apply-promo-btn');
         const promoInput = document.getElementById('promocode');
-        
+
         if (applyPromoBtn && promoInput) {
             applyPromoBtn.addEventListener('click', () => {
                 const code = promoInput.value.trim().toUpperCase();
@@ -391,7 +391,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 errorMessageElement.textContent = isValid ? '' : message;
             }
         };
-    
+
         // Константы для Telegram API
         // ВНИМАНИЕ: Отправка ключей напрямую из браузера небезопасна.
         // Для реального проекта они должны лежать на сервере (backend).
@@ -428,7 +428,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateError(phoneInput, isPhoneValid, 'Неверный формат телефона');
             updateError(emailInput, isEmailValid, 'Неверный формат email');
             updateError(addressInput, isAddressValid, 'Пожалуйста, введите ваш адрес');
-            
+
             if (!isFioValid || !isPhoneValid || !isEmailValid || !isAddressValid) {
                 return;
             }
@@ -546,7 +546,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const applyFilters = () => {
             const activeCategoryBtn = filterButtonsContainer ? filterButtonsContainer.querySelector('.active') : null;
             const activeCategory = activeCategoryBtn ? activeCategoryBtn.dataset.filter : 'all';
-            
+
             const priceFrom = parseFloat(priceFromInput.value) || 0;
             const priceTo = parseFloat(priceToInput.value) || Infinity;
             const selectedSizes = Array.from(sizeCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
@@ -564,7 +564,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // 3. Проверка размера (если выбраны какие-то размеры)
                 if (isVisible && selectedSizes.length > 0) {
-                    const cardSizes = card.dataset.sizes ? card.dataset.sizes.split(',') : []; 
+                    const cardSizes = card.dataset.sizes ? card.dataset.sizes.split(',') : [];
                     const hasSize = selectedSizes.some(size => cardSizes.includes(size));
                     if (!hasSize) {
                         isVisible = false;
@@ -583,7 +583,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 applyFilters(); // Фильтруем сразу при смене категории
             });
         }
-        
+
         if (applyBtn) {
             // Фильтруем по клику на "Применить" (для цены и размеров)
             applyBtn.addEventListener('click', applyFilters);
@@ -623,7 +623,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const itemWidth = firstItem.offsetWidth;
             const gap = parseFloat(window.getComputedStyle(firstItem.parentElement).gap);
             const scrollAmount = (itemWidth + gap) * direction;
-            
+
             sliderContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
         };
 
@@ -639,7 +639,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 9. АКТИВНОЕ СОСТОЯНИЕ НАВИГАЦИИ
     const navLinks = document.querySelectorAll('.nav__link');
     const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-    
+
     navLinks.forEach(link => {
         const linkHref = link.getAttribute('href');
         // Обрабатываем случаи, когда ссылка пустая (#) или ведет на главную
@@ -651,11 +651,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // 9. БУРГЕР МЕНЮ НА МОБИЛЬНЫХ
     const burgerBtn = document.querySelector('.header__burger');
     const headerNav = document.querySelector('.header__nav');
-    
+
     if (burgerBtn && headerNav) {
         burgerBtn.addEventListener('click', () => {
             headerNav.classList.toggle('active');
-            
+
             // Замена иконки бургера на "Крестик" и обратно
             if (headerNav.classList.contains('active')) {
                 burgerBtn.innerHTML = `
@@ -680,7 +680,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.product-card__image').forEach(img => {
         const wrapper = img.parentElement;
         wrapper.classList.add('skeleton-loading');
-        
+
         // Как только картинка загрузится (или если она уже загрузилась из кэша)
         if (img.complete) {
             wrapper.classList.remove('skeleton-loading');
@@ -701,7 +701,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 10. ДИНАМИЧЕСКАЯ СТРАНИЦА ТОВАРА И ССЫЛКИ
     // Заменяем href во всех карточках так, чтобы они вели на product.html с правильным ID
     document.querySelectorAll('.product-card').forEach((card, index) => {
-        
+
         // 10A. Анимация появления карточек (#14)
         if (window.location.pathname.includes('catalog.html') || window.location.pathname.includes('index.html') || window.location.pathname === '/') {
             card.style.opacity = '0';
@@ -737,7 +737,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('.product-page__description').textContent = product.description;
             document.querySelector('.product-page__image').src = product.image;
             document.querySelector('.product-page__image').alt = product.name;
-            
+
             // Рендерим размеры
             const sizesContainer = document.querySelector('.product-page__size-selector');
             if (sizesContainer) {
@@ -745,7 +745,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 product.sizes.forEach(size => {
                     sizesContainer.innerHTML += `<button class="product-page__size-btn">${size.toUpperCase()}</button>`;
                 });
-                
+
                 sizesContainer.addEventListener('click', (e) => {
                     if (e.target.matches('.product-page__size-btn')) {
                         sizesContainer.querySelectorAll('.product-page__size-btn').forEach(b => b.classList.remove('active'));
